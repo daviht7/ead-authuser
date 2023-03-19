@@ -10,6 +10,4 @@ public class InstructorDto {
 
     @NotNull
     private UUID userId;
-
-
 }

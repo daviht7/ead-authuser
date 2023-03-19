@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtDto {
 
-    @NonNull //criar construtor só com token por causa do nonnull
+    @NonNull
     private String token;
     private String type = "Bearer";
 

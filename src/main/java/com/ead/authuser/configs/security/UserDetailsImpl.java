@@ -4,7 +4,6 @@ import com.ead.authuser.models.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
     private UUID userId;
@@ -37,8 +35,7 @@ public class UserDetailsImpl implements UserDetails {
                 userModel.getUsername(),
                 userModel.getPassword(),
                 userModel.getEmail(),
-                authorities
-        );
+                authorities);
     }
 
     @Override

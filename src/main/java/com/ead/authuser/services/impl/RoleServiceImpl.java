@@ -4,16 +4,16 @@ import com.ead.authuser.enums.RoleType;
 import com.ead.authuser.models.RoleModel;
 import com.ead.authuser.repositories.RoleRepository;
 import com.ead.authuser.services.RoleService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleRepository roleRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public Optional<RoleModel> findByRoleName(RoleType roleType) {
