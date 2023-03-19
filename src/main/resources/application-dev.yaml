@@ -1,6 +1,6 @@
 spring:
   config:
-    import: 'optional:configserver:'
+    import: 'configserver:'
   cloud:
     config:
       discovery:

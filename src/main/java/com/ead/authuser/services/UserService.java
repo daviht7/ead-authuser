@@ -10,11 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
-
     List<UserModel> findAll();
-
-    Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable);
-
     Optional<UserModel> findById(UUID userId);
 
     void delete(UserModel userModel);
@@ -25,13 +21,11 @@ public interface UserService {
 
     boolean existsByEmail(String email);
 
-    UserModel saveUser(UserModel user);
+    Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable);
 
+    UserModel saveUser(UserModel userModel);
     void deleteUser(UserModel userModel);
-
     UserModel updateUser(UserModel userModel);
-
     UserModel updatePassword(UserModel userModel);
-
 
 }

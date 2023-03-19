@@ -1,41 +1,37 @@
 package com.ead.authuser.services.impl;
 
-import com.ead.authuser.clients.UserClient.CourseClient;
+import com.ead.authuser.clients.CourseClient;
 import com.ead.authuser.enums.ActionType;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.publishers.UserEventPublisher;
 import com.ead.authuser.repositories.UserRepository;
 import com.ead.authuser.services.UserService;
-import com.fasterxml.jackson.databind.util.BeanUtil;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    private final CourseClient courseClient;
+    @Autowired
+    CourseClient courseClient;
 
-    private final UserEventPublisher userEventPublisher;
+    @Autowired
+    UserEventPublisher userEventPublisher;
 
     @Override
     public List<UserModel> findAll() {
         return userRepository.findAll();
-    }
-
-    @Override
-    public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) {
-        return userRepository.findAll(spec, pageable);
     }
 
     @Override
@@ -64,10 +60,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsByEmail(email);
     }
 
+    @Override
+    public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) {
+        return userRepository.findAll(spec, pageable);
+    }
+
     @Transactional
     @Override
-    public UserModel saveUser(UserModel userModel) {
-        save(userModel);
+    public UserModel saveUser(UserModel userModel){
+        userModel = save(userModel);
         userEventPublisher.publishUserEvent(userModel.convertToUserEventDto(), ActionType.CREATE);
         return userModel;
     }
@@ -82,15 +83,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserModel updateUser(UserModel userModel) {
-        save(userModel);
+        userModel = save(userModel);
         userEventPublisher.publishUserEvent(userModel.convertToUserEventDto(), ActionType.UPDATE);
         return userModel;
     }
 
     @Override
     public UserModel updatePassword(UserModel userModel) {
-       return save(userModel);
+        return save(userModel);
     }
-
-
 }
