@@ -1,6 +1,7 @@
 package com.ead.authuser.dtos;
 
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 
@@ -17,5 +18,6 @@ public class UserEventDto {
     private String cpf;
     private String imageUrl;
     private String actionType;
+
 
 }

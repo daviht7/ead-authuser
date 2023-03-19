@@ -17,7 +17,7 @@ public class RabbitmqConfig {
     @Autowired
     CachingConnectionFactory cachingConnectionFactory;
 
-    @Value("${ead.broker.exchange.userEvent}")
+    @Value(value = "${ead.broker.exchange.userEvent}")
     private String exchangeUserEvent;
 
     @Bean
@@ -35,7 +35,7 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    public FanoutExchange fanoutExchange() {
+    public FanoutExchange fanoutUserEvent() {
         return new FanoutExchange(exchangeUserEvent);
     }
 
